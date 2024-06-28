@@ -1,0 +1,21 @@
+import os
+import requests
+from selenium import webdriver
+from bs4 import BeautifulSoup
+url="https://uma.komoejoy.com/character.html"
+driver=webdriver.Chrome()
+driver.get(url)
+html= driver.page_source
+soup = BeautifulSoup(html, 'html.parser')
+os.makedirs('animepicture',exist_ok=True)
+imgs=soup.find_all('img')
+print(imgs)
+for img in imgs:
+    try:
+        filename= img['alt']
+        url='http:'+img['data-src']
+        req = requests.get(url)
+        with open(f'animepicture/{filename}.jpg', mode='wb') as file:
+             file.write()
+    except:
+        pass
