@@ -1,0 +1,51 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;  /* 深色背景 */
+    color: #fff;  /* 白色文本 */
+}
+
+header {
+    background-color: #333;  /* 深灰色背景 */
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+main {
+    padding: 20px;
+}
+
+.indicators, .chart {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #333;  /* 深灰色背景 */
+    border: 1px solid #555;  /* 深灰色邊框 */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #4CAF50;  /* 綠色標題 */
+}
+
+footer {
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #333;  /* 深灰色背景 */
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+#indicator-data {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+#tradingview-chart {
+    height: 800px;  /* 調整為你希望的高度，這裡示例調整為 600px */
+}
