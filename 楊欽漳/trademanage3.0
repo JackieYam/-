@@ -3,8 +3,14 @@
 //+------------------------------------------------------------------+
 #include <Trade\Trade.mqh> // MQL5 交易函數庫
 
+//+------------------------------------------------------------------+
+//| 全局變量                                                          |
+//+------------------------------------------------------------------+
 CTrade trade; // 創建一個交易對象，用於處理交易操作
 
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
 int OnInit()
   {
    // Initialization code
@@ -43,8 +49,8 @@ void SetSLTP(ulong ticket,double TP, double SL)
                double minStopLevel = minStopLevelPoints * _Point;
                if (PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_BUY)
                {
-                  stopLoss = openPrice - SL * _Point; 
-                  takeProfit = openPrice + TP * _Point; 
+                  stopLoss = openPrice - 200 * _Point; 
+                  takeProfit = openPrice + 300 * _Point; 
                   if (stopLoss > openPrice - minStopLevel)
                      stopLoss = openPrice - minStopLevel;
                      trade.PositionModify(ticket, stopLoss, takeProfit);
@@ -55,8 +61,8 @@ void SetSLTP(ulong ticket,double TP, double SL)
                }
                else if (PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_SELL)
                {
-                  stopLoss = openPrice + SL * _Point;
-                  takeProfit = openPrice - TP * _Point;
+                  stopLoss = openPrice + 200 * _Point;
+                  takeProfit = openPrice - 300 * _Point;
                   if (stopLoss < openPrice + minStopLevel)
                      stopLoss = openPrice + minStopLevel;
                      trade.PositionModify(ticket, stopLoss, takeProfit);
@@ -101,19 +107,18 @@ int inprofits(ulong ticket, double securedpips,double closepercentage) {
 
 void Check(){
 int totalOrders = PositionsTotal();
-int secured=0;//標記
 double securedpips=100;//保證盈利 
-double managepips=150;// 降低損失
+double managepips=100;// 降低損失
 double closepercentage=50;//倉位關閉多少百分比 
-double TP=400;
-double SL=180;
+double TP=300;
+double SL=200;
 double openPrice = PositionGetDouble(POSITION_PRICE_OPEN);
 double currentprice=PositionGetDouble(POSITION_PRICE_CURRENT);
    for (int i = 0; i < totalOrders; i++)
    {
       ulong ticket = PositionGetTicket(i);
       int managed=0;//標記
-      
+      int secured=0;//標記
       if (PositionSelectByTicket(ticket))
       {
          if (PositionGetString(POSITION_SYMBOL) == _Symbol) // 檢查當前symbol的訂單
@@ -130,7 +135,7 @@ double currentprice=PositionGetDouble(POSITION_PRICE_CURRENT);
             else if (PositionGetInteger(POSITION_TYPE) == POSITION_TYPE_SELL && currentprice>openPrice +managepips *_Point && managed!=1){
             ClosePartialPosition(ticket,closepercentage);
             managed=1;
-            Print("managed=",managed);
+            Print("manage=",managed);
             }
             else if(PositionGetDouble(POSITION_SL) !=openPrice){
             secured=inprofits(ticket,securedpips,closepercentage);
