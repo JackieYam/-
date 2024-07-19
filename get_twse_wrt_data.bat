@@ -1,0 +1,1 @@
+C:\Python27\python.exe "C:\AuroraQuantitative\Scripts\get_twse_wrt_data.py"
